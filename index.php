@@ -1,0 +1,3 @@
+<?php
+/** Class Inheritance */
+//todo...
