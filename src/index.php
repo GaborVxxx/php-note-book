@@ -3,9 +3,9 @@
 // todo... use Docker to create a docker mysql data base and connect to it from the project!
 
 $servername = "mysql_db";
-$username = "your_user";
-$password = "your_password";
-$dbname = "your_database";
+$username = getenv('MYSQL_USER');
+$password = getenv('MYSQL_PASSWORD');
+$dbname = getenv('MYSQL_DATABASE');
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
