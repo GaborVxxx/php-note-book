@@ -1,28 +1,34 @@
 <?php
-/** PDO (PHP Data Objects) */
+global $pdo;
+require 'database.php';
 
-// docker-compose up --build  <-- command to build the container for database and run it. NOTE: require Docker!
-// docker-compose up  <-- if container already exist...
-// url: http://localhost:8080/src  <-- navigate to url to see the connection.
+/** Make users table in database and add some records, so we can fetch some data. */
 
-$env = parse_ini_file('../.env'); // pars the .env from root dir
+// Prepare the SELECT statement and get all.
+$stmt = $pdo->prepare("SELECT * FROM users");
+$stmt->execute();
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$host = "127.0.0.1";
-$port = 3306;
-$dbName = $env['MYSQL_DATABASE'];
-$username = $env['MYSQL_USER'];
-$password = $env['MYSQL_PASSWORD'];
+$first = $result[0];
+var_dump($first);
 
-$dsn = "mysql:host={$host};port={$port};dbname={$dbName};charset=utf8";
+// Get a single record
+$stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
+$stmt->execute(['id' => $first['id']]);
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+var_dump($result);
 
-try {
-    $pdo = new PDO($dsn, $username, $password);
+// Create a new record
+$stmt = $pdo->prepare("INSERT INTO users (name, email) VALUES (:name, :email)");
+$stmt->execute(['name' => 'Jon', 'email' => 'jon@gmail.com']);
 
-    // set it to throw exceptions on error
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// Update the first record
+$stmt = $pdo->prepare("UPDATE users SET name = :name, email = :email WHERE id = :id");
+$stmt->execute(['name' => 'Jon2', 'email' => 'jon2@gmail.com', 'id' => $first['id']]);
 
-    echo "Connected successfully";
-} catch (PDOException $e) {
-    // errors
-    echo $e->getMessage();
-}
+// Delete record  NOTE we're just going to delete the first record for demo...
+$stmt = $pdo->prepare("DELETE FROM users WHERE id = :id");
+$stmt->execute(['id' => $first['id']]);
+
+
+
