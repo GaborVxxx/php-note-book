@@ -1,0 +1,63 @@
+# Composer dependencies
+/vendor/
+
+# Composer metadata
+/composer.lock
+
+# Composer downloaded binaries
+/.composer/
+
+# PHPUnit result cache
+.phpunit.result.cache
+
+# Laravel specific
+/storage/
+/bootstrap/cache/
+
+# Symfony specific
+/var/
+/vendor/
+
+# CakePHP specific
+/tmp/
+/logs/
+/lib/Cake/Console/Templates/skel/tmp/*
+/lib/Cake/Console/Templates/skel/Logs/*
+
+# FuelPHP specific
+/fuel/app/cache/
+/fuel/app/logs/
+/fuel/app/tmp/
+
+# Zend Framework specific
+/data/cache/
+/data/logs/
+
+# Doctrine specific
+/data/DoctrineORMModule/Proxy/
+
+# WordPress specific
+/wp-content/uploads/
+
+# Node modules (if using npm for JS dependencies)
+/node_modules/
+
+# Local environment files
+.env
+.env.local
+.env.*.local
+
+# Log files
+*.log
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Mac specific
+.DS_Store
+
+# Windows specific
+Thumbs.db
